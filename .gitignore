@@ -1,5 +1,7 @@
-.DS_Store
-.terraform
-terraform.tfstate
-terraform.tfstate.backup
-terraform.tfstate.*.backup
+*__pycache__
+*.DS_Store
+*.pytest_cache
+*.terraform
+*terraform.tfstate
+*terraform.tfstate.*.backup
+*terraform.tfstate.backup
