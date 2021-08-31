@@ -1,40 +1,49 @@
-# Truss Terraform Module template
+Creates a Lambda function that will update NLB target groups to point to an
+ALB's IP addresses. This is modeled after [the architecture described by
+AWS](https://aws.amazon.com/blogs/networking-and-content-delivery/using-aws-lambda-to-enable-static-ip-addresses-for-application-load-balancers/).
+This is useful for situations where an ALB is in use, but IP addresses must be
+allowlisted. ALBs do not use static IP addresses, so this module provides a
+solution to that problem.
 
-This repository is meant to be a template repo we can just spin up new module repos from with our general format.
+This module creates the following resources:
 
-## Creating a new Terraform Module
-
-1. Clone this repo, renaming appropriately.
-1. Write your terraform code in the root dir.
-1. Create an example of the module in use in the `examples` dir.
-1. Ensure you've completed the [Developer Setup](#developer-setup).
-1. In the root dir, run `go mod init MODULE_NAME` to get a new `go.mod` file. Then run `go mod tidy`. This creates a new `go.sum` file and imports the dependencies and checksums specific to your repository.
-1. Run your tests to ensure they work as expected using instructions below.
-
-## Actual readme below  - Delete above here
-
-Please put a description of what this module does here
+* Lambda function that updates the supplied NLB's target groups to point to the
+  ALB's current IPs
+* CloudWatch event rule that triggers the Lambda function every minute
+* CloudWatch log group
+* IAM policy to allow the Lambda to update the NLB's target groups, save state
+  to an S3 bucket, and log to CloudWatch
 
 ## Terraform Versions
 
-_This is how we're managing the different versions._
-Terraform 0.13. Pin module version to ~> 2.0. Submit pull-requests to master branch.
-
-Terraform 0.12. Pin module version to ~> 1.0.1. Submit pull-requests to terraform012 branch.
-
-Terraform 0.11. Pin module version to ~> 1.0. Submit pull-requests to terraform011 branch.
+This module supports Terraform 1.x.
 
 ## Usage
 
-### Put an example usage of the module here
+### Example
 
 ```hcl
 module "example" {
-  source = "terraform/registry/path"
+  source = "trussworks/nlb-tg-to-alb/aws"
 
-  <variables>
+  alb_dns_name          = "name-env-1234567890.us-gov-west-1.elb.amazonaws.com"
+  lambda_job_identifier = "nlb-tg-updater"
+  lambda_s3_bucket      = "s3-bucket-that-stores-deployment-zip-file"
+  lambda_s3_key         = "deployment.zip"
+  name                  = "example"
+  nlb_target_group_arn  = "arn:aws-us-gov:elasticloadbalancing:us-gov-west-1:012345678901:loadbalancer/net/nlb-name-env/abcdef0123456789"
+  status_s3_bucket      = "s3-bucket-that-stores-lambda-state"
 }
 ```
+
+This requires that you set up a few things:
+
+* An S3 bucket to store the Lambda ZIP file
+* An S3 bucket to store the Lambda state (active and pending IP lists); this
+  can be the same bucket as where the Lambda ZIP file is stored or it can be a
+  separate S3 bucket
+* An NLB that will redirect traffic to the ALB
+* An ALB that will receive traffic from the NLB
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
