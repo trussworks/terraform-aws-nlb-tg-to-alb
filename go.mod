@@ -1,6 +1,6 @@
 module github.com/trussworks/terraform-module-template
 
-go 1.17
+go 1.18
 
 require github.com/gruntwork-io/terratest v0.37.7
 
