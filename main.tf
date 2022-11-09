@@ -30,7 +30,7 @@ resource "aws_cloudwatch_event_target" "main" {
 
 module "updater" {
   source                 = "trussworks/lambda/aws"
-  version                = "2.4.0"
+  version                = "2.5.0"
   name                   = local.function_name_base
   handler                = "populate_NLB_TG_with_ALB.lambda_handler"
   job_identifier         = local.job_identifier
