@@ -63,7 +63,7 @@ This requires that you set up a few things:
 
 | Name | Source | Version |
 |------|--------|---------|
-| updater | trussworks/lambda/aws | 2.4.0 |
+| updater | trussworks/lambda/aws | 2.5.0 |
 
 ## Resources
 
