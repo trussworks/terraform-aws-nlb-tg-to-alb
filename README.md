@@ -7,11 +7,11 @@ solution to that problem.
 
 This module creates the following resources:
 
-* Lambda function that updates the supplied NLB's target groups to point to the
+- Lambda function that updates the supplied NLB's target groups to point to the
   ALB's current IPs
-* CloudWatch event rule that triggers the Lambda function every minute
-* CloudWatch log group
-* IAM policy to allow the Lambda to update the NLB's target groups, save state
+- CloudWatch event rule that triggers the Lambda function every minute
+- CloudWatch log group
+- IAM policy to allow the Lambda to update the NLB's target groups, save state
   to an S3 bucket, and log to CloudWatch
 
 ## Terraform Versions
@@ -38,12 +38,12 @@ module "example" {
 
 This requires that you set up a few things:
 
-* An S3 bucket to store the Lambda ZIP file
-* An S3 bucket to store the Lambda state (active and pending IP lists); this
+- An S3 bucket to store the Lambda ZIP file
+- An S3 bucket to store the Lambda state (active and pending IP lists); this
   can be the same bucket as where the Lambda ZIP file is stored or it can be a
   separate S3 bucket
-* An NLB that will redirect traffic to the ALB
-* An ALB that will receive traffic from the NLB
+- An NLB that will redirect traffic to the ALB
+- An ALB that will receive traffic from the NLB
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -105,20 +105,4 @@ Install dependencies (macOS)
 ```shell
 brew install pre-commit go terraform terraform-docs
 pre-commit install --install-hooks
-```
-
-### Testing
-
-[Terratest](https://github.com/gruntwork-io/terratest) is being used for
-automated testing with this module. Tests in the `test` folder can be run
-locally by running the following command:
-
-```text
-make test
-```
-
-Or with aws-vault:
-
-```text
-AWS_VAULT_KEYCHAIN_NAME=<NAME> aws-vault exec <PROFILE> -- make test
 ```
