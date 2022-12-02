@@ -51,13 +51,13 @@ This requires that you set up a few things:
 | Name | Version |
 |------|---------|
 | terraform | >= 0.13 |
-| aws | ~> 3.0 |
+| aws | ~> 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.0 |
+| aws | 4.45.0 |
 
 ## Modules
 
