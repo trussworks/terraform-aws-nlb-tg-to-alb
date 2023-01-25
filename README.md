@@ -1,6 +1,8 @@
-Creates a Lambda function that will update NLB target groups to point to an
-ALB's IP addresses. This is modeled after [the architecture described by
-AWS](https://aws.amazon.com/blogs/networking-and-content-delivery/using-aws-lambda-to-enable-static-ip-addresses-for-application-load-balancers/).
+# DEPRECIATION NOTICE
+
+This module has been deprecated and is no longer maintained. Should you need to continue to use it, please fork the repository. Thank you.
+
+Creates a Lambda function that will update NLB target groups to point to an ALB's IP addresses. This is modeled after [the architecture described by AWS](https://aws.amazon.com/blogs/networking-and-content-delivery/using-aws-lambda-to-enable-static-ip-addresses-for-application-load-balancers/).
 This is useful for situations where an ALB is in use, but IP addresses must be
 allowlisted. ALBs do not use static IP addresses, so this module provides a
 solution to that problem.
